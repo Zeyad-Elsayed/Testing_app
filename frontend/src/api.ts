@@ -1,9 +1,7 @@
 import type { Client, CreateClientInput } from "./types";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 export async function getClients(): Promise<Client[]> {
-  const response = await fetch(`${API_URL}/api/clients`);
+  const response = await fetch("/api/clients");
 
   if (!response.ok) {
     throw new Error("Failed to fetch clients");
@@ -12,10 +10,8 @@ export async function getClients(): Promise<Client[]> {
   return response.json();
 }
 
-export async function createClient(
-  data: CreateClientInput
-): Promise<Client> {
-  const response = await fetch(`${API_URL}/api/clients`, {
+export async function createClient(data: CreateClientInput): Promise<Client> {
+  const response = await fetch("/api/clients", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +27,7 @@ export async function createClient(
 }
 
 export async function deleteClient(id: number): Promise<void> {
-  const response = await fetch(`${API_URL}/api/clients/${id}`, {
+  const response = await fetch(`/api/clients/${id}`, {
     method: "DELETE",
   });
 
